@@ -10,6 +10,7 @@ namespace EasyTravel.Logic
         private string name;
         private bool has_universal;
         private string universal, police, fire, ambulance;
+        private string[] fun_facts;
         //TODO other informations
 
         public Country(string s)
@@ -19,17 +20,29 @@ namespace EasyTravel.Logic
 
         private void ParseCountry(string s)
         {
-            name = "Romia";
-            has_universal = true;
-            universal = "112";
-            police = "-";
-            fire = "-";
-            ambulance = "-";
+            var v = s.Split(';');
+            name = v[0];
+            police = v[1];
+            fire = v[2];
+            ambulance = v[3];
+
+            if (String.IsNullOrEmpty(fire)) has_universal = true;
+            else has_universal = false;
+
+            if (String.IsNullOrEmpty(ambulance)) ambulance = fire;
+            if (v.Length > 4) fun_facts = new string[v.Length - 4];
+            else fun_facts = null;
+            for (int i = 4; i < v.Length; ++i) fun_facts[i - 4] = v[i];
         }
 
         public string GetName()
-        {
+        { 
             return name;
+        }
+
+        public string[] GetFunFacts()
+        {
+            return fun_facts;
         }
 
         public string GetNumbers()
