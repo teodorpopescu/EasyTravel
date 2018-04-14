@@ -34,36 +34,5 @@ namespace EasyTravel.Controllers
 
             return View();
         }
-
-
-        public void wetter()
-        {
-            try
-            {
-                string ort; // ort = Location
-                ort = "Bucharest";
-                XmlDocument googlewetter = new XmlDocument();
-                googlewetter.Load(string.Format("http://www.google.com/ig/api?weather={0}", ort));
-
-                string stadt = googlewetter.SelectSingleNode("/xml_api_reply/weather/forecast_information/city").Attributes[0].InnerText;
-                lbStadt.Text = stadt;
-
-                string temperatur = googlewetter.SelectSingleNode("/xml_api_reply/weather/current_conditions/temp_c").Attributes[0].InnerText;
-                lbTemperatur.Text = temperatur;
-
-                string aktuell = googlewetter.SelectSingleNode("/xml_api_reply/weather/current_conditions/condition").Attributes[0].InnerText;
-                lbAktuell.Text = aktuell;
-
-                string wind = googlewetter.SelectSingleNode("/xml_api_reply/weather/current_conditions/wind_condition").Attributes[0].InnerText;
-                lbWind.Text = wind;
-
-                string luft = googlewetter.SelectSingleNode("/xml_api_reply/weather/current_conditions/humidity").Attributes[0].InnerText;
-                lbLuft.Text = luft;
-            }
-            catch
-            {
-                MessageBox.Show("Error");
-            }
-        }
     }
 }
