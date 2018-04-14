@@ -30,7 +30,7 @@ namespace EasyTravel.Controllers
 
         public ActionResult Test()
         {
-            ViewBag.Key = Logic.Constants.GOOGLE_MAPS_KEY;
+            ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
             ViewBag.Latitude = "51.508742";
             ViewBag.Longitude = "-0.120850";
 
@@ -39,6 +39,7 @@ namespace EasyTravel.Controllers
       
         public ActionResult Dashboard()
         {
+            ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
             ViewBag.Message = "Your contact page.";
 
             return View();
