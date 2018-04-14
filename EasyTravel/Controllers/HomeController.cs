@@ -48,6 +48,8 @@ namespace EasyTravel.Controllers
                 else ViewBag.FunFact2 = "People are very hospitable!";
             }
             ViewBag.Currency = country.GetCurrencyISO();
+            ViewBag.CurrencyValue = country.GetCurrencyValue().ToString();
+            ViewBag.MyCurrency = "USD";
             ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
             return View();
         }

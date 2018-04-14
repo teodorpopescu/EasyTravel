@@ -52,6 +52,11 @@ namespace EasyTravel.Logic
             return currency;
         }
 
+        public double GetCurrencyValue()
+        {
+            return currency_value;
+        }
+
         public string[] GetFunFacts()
         {
             return fun_facts;
