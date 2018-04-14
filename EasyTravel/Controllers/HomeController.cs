@@ -36,7 +36,7 @@ namespace EasyTravel.Controllers
         {
             string csv = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/CompleteCountries.csv"));
             Country country = new Country(csv.Split('\n')[130]);
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Country = country.GetName();
             ViewBag.PhoneNumbers = country.GetNumbers();
             string[] fun_facts = country.GetFunFacts();
             if (fun_facts != null)
