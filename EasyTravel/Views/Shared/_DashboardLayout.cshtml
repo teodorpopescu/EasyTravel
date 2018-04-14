@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,45 +13,45 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <style>
-         /* Always set the map height explicitly to define the size of the div
+        /* Always set the map height explicitly to define the size of the div
         * element that contains the map. */
-         #map {
-             height: 100%;
-         }
+        #map {
+            height: 100%;
+        }
 
-         .controls {
-             background-color: #fff;
-             border-radius: 2px;
-             border: 1px solid transparent;
-             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-             box-sizing: border-box;
-             font-family: Roboto;
-             font-size: 15px;
-             font-weight: 300;
-             height: 29px;
-             margin-left: 17px;
-             margin-top: 10px;
-             outline: none;
-             padding: 0 11px 0 13px;
-             text-overflow: ellipsis;
-             width: 400px;
-         }
+        .controls {
+            background-color: #fff;
+            border-radius: 2px;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            height: 29px;
+            margin-left: 17px;
+            margin-top: 10px;
+            outline: none;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 400px;
+        }
 
-             .controls:focus {
-                 border-color: #4d90fe;
-             }
+            .controls:focus {
+                border-color: #4d90fe;
+            }
 
-         .title {
-             font-weight: bold;
-         }
+        .title {
+            font-weight: bold;
+        }
 
-         #infowindow-content {
-             display: none;
-         }
+        #infowindow-content {
+            display: none;
+        }
 
-         #map #infowindow-content {
-             display: inline;
-         }
+        #map #infowindow-content {
+            display: inline;
+        }
     </style>
 
 
@@ -73,6 +74,8 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body>
+    <script src="~/Scripts/location.js"></script>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -291,7 +294,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="~/Content/Images/user.png" class="user-image" alt="User Image">
-                            <span>User name</span>
+                            <span>@User.Identity.GetUserName()</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -334,15 +337,15 @@
     @RenderBody()
 
     <!-- jQuery 3 -->
-    <script src="~/bower_components/jquery/~/dist/jquery.min.js"></script>
+    <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
-    <script src="~/bower_components/bootstrap/~/dist/js/bootstrap.min.js"></script>
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="~/bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
     <script src="~/dist/js/adminlte.min.js"></script>
     <!-- Sparkline -->
-    <script src="~/bower_components/jquery-sparkline/~/dist/jquery.sparkline.min.js"></script>
+    <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
     <!-- jvectormap  -->
     <script src="~/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="~/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
@@ -351,13 +354,12 @@
     <!-- ChartJS -->
     <script src="~/bower_components/chart.js/Chart.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="~/dist/js/~/pages/dashboard2.js"></script>
+    <script src="~/dist/js/pages/dashboard2.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/dist/js/demo.js"></script>
 
-    <script src="~/Scripts/location.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.GoogleMapsKey&libraries=places&callback=initMap"
-    async defer></script>
+            async defer></script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

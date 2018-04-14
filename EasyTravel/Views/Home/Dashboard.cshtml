@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
     ViewBag.Title = "Dashboard";
 }
@@ -15,7 +16,7 @@
                         <img src="~/Content/Images/user.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Alexander Pierce</p>
+                        <p>@User.Identity.GetUserName()</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
@@ -250,7 +251,7 @@
                     </div>
                     <!-- /.col -->
                     <!-- fix for small devices only -->
-                   <!-- <div class="clearfix visible-sm-block"></div> -->
+                    <!-- <div class="clearfix visible-sm-block"></div> -->
                     <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class="info-box">
                             <span class="info-box-icon bg-aqua"><i class="ion ion-android-bulb"></i></span>
@@ -278,7 +279,7 @@
                 </div>
                 <!-- Main row -->
                 <div class="row">
-                   
+
                     <!-- /.col -->
                     <div class="col-md-4">
                         <!-- /.box -->
@@ -424,11 +425,10 @@
                             </div>
                             <!-- /.info-box-content -->
                         </div>
-      
+
 
                     </div>
                     <!-- /.col -->
-
                     <!-- Left col -->
                     <div class="col-md-8">
                         <!-- MAP & BOX PANE -->
@@ -460,17 +460,22 @@
                                     </div>
                                     <div class="box-body">
                                         <a class="weatherwidget-io" id="weather-widget" href="https://forecast7.com/en/40d71n74d01/new-york/" data-label_1="NEW YORK" data-label_2="WEATHER" data-icons="Climacons Animated" data-days="7" data-theme="pure">WEATHER</a>
-                                        <script>
-                                            function getForecastUrl(place_id) {
-                                                var request = new XMLHttpRequest();
-                                                request.open('GET', 'https://forecast7.com/api/getUrl/' + place_id, false);
-                                                request.send(null);
-                                                return request.responseText;
-                                            }
-                                      //      getForecast(document, 'script', 'weatherwidget-io-js');
-                                            !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; var wtf = getForecastUrl('ChIJT608vzr5sUARKKacfOMyBqw'); var x = d.getElementById('weather-widget'); x.setAttribute("data-label_1", wtf.split("/")[1].toUpperCase()); x.href = "https://forecast7.com/en/" + wtf + "/"; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
-                                                                                                                                                                                                      //      !updateForecastt(document, 'script', 'weatherwidget-io-js');
-                                        </script>
+                                        <script id="weather_script">
+                                            // getForecast(document, 'script', 'weatherwidget-io-js');
+                                            !function (d, s, id) {
+                                                var js, fjs = d.getElementsByTagName(s)[0];
+
+                                                var location = getForecastUrl(placeID);
+                                                var wid = d.getElementById('weather-widget');
+                                                wid.setAttribute("data-label_1", location.split("/")[1].toUpperCase());
+                                                wid.href = "https://forecast7.com/en/" + location + "/";
+                                                if (!d.getElementById(id)) {
+                                                    js = d.createElement(s);
+                                                    js.id = id;
+                                                    js.src = 'https://weatherwidget.io/js/widget.min.js';
+                                                    fjs.parentNode.insertBefore(js, fjs);
+                                                }
+                                            }(document, 'script', 'weatherwidget-io-js');
                                     </div>
                                 </div>
 
@@ -496,7 +501,7 @@
                                             <div class="input-group">
                                                 <input type="text" id="from2" placeholder="From @ViewBag.Currency ..." class="form-control">
                                                 <span class="input-group-btn">
-                                                    <button type="button" id ="convert2" class="btn btn-warning btn-flat">==></button>
+                                                    <button type="button" id="convert2" class="btn btn-warning btn-flat">==></button>
                                                 </span>
                                                 <input type="text" id="to2" placeholder="To @ViewBag.MyCurrency ..." class="form-control">
                                             </div>
@@ -513,87 +518,87 @@
                                             var x = document.getElementById("from2").value;
                                             document.getElementById("to2").value = x * @ViewBag.CurrencyValue;
                                         }
-                                    </script>
-                                </div>
-                               
-                                <!--/.direct-chat -->
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-md-6">
-                                <!-- USERS LIST -->
-                                <div class="box box-danger">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-danger">8 New Members</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
+                                        </script>
                                     </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body no-padding">
-                                        <ul class="users-list clearfix">
-                                            <li>
-                                                <img src="~/Content/Images/user.png" alt="User Image">
-                                                <a class="users-list-name" href="#">Alexander Pierce</a>
-                                                <span class="users-list-date">Today</span>
-                                            </li>
-                                            <li>
-                                                <img src="~/Content/Images/user.png" alt="User Image">
-                                                <a class="users-list-name" href="#">Norman</a>
-                                                <span class="users-list-date">Yesterday</span>
-                                            </li>
-                                            <li>
-                                                <img src="~/Content/Images/user.png" alt="User Image">
-                                                <a class="users-list-name" href="#">Jane</a>
-                                                <span class="users-list-date">12 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="~/Content/Images/user.png" alt="User Image">
-                                                <a class="users-list-name" href="#">John</a>
-                                                <span class="users-list-date">12 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="~/Content/Images/user.png" alt="User Image">
-                                                <a class="users-list-name" href="#">Alexander</a>
-                                                <span class="users-list-date">13 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="~/Content/Images/user.png" alt="User Image">
-                                                <a class="users-list-name" href="#">Sarah</a>
-                                                <span class="users-list-date">14 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="~/Content/Images/user.png" alt="User Image">
-                                                <a class="users-list-name" href="#">Nora</a>
-                                                <span class="users-list-date">15 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="~/Content/Images/user.png" alt="User Image">
-                                                <a class="users-list-name" href="#">Nadia</a>
-                                                <span class="users-list-date">15 Jan</span>
-                                            </li>
-                                        </ul>
-                                        <!-- /.users-list -->
-                                    </div>
-                                    <!-- /.box-body -->
-                                    <div class="box-footer text-center">
-                                        <a href="javascript:void(0)" class="uppercase">View All Users</a>
-                                    </div>
-                                    <!-- /.box-footer -->
-                                </div>
-                                <!--/.box -->
-                            </div>
-                            <!-- /.col -->
-                        </div>
 
+                                    <!--/.direct-chat -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <!-- USERS LIST -->
+                                    <div class="box box-danger">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Latest Members</h3>
+                                            <div class="box-tools pull-right">
+                                                <span class="label label-danger">8 New Members</span>
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body no-padding">
+                                            <ul class="users-list clearfix">
+                                                <li>
+                                                    <img src="~/Content/Images/user.png" alt="User Image">
+                                                    <a class="users-list-name" href="#">Alexander Pierce</a>
+                                                    <span class="users-list-date">Today</span>
+                                                </li>
+                                                <li>
+                                                    <img src="~/Content/Images/user.png" alt="User Image">
+                                                    <a class="users-list-name" href="#">Norman</a>
+                                                    <span class="users-list-date">Yesterday</span>
+                                                </li>
+                                                <li>
+                                                    <img src="~/Content/Images/user.png" alt="User Image">
+                                                    <a class="users-list-name" href="#">Jane</a>
+                                                    <span class="users-list-date">12 Jan</span>
+                                                </li>
+                                                <li>
+                                                    <img src="~/Content/Images/user.png" alt="User Image">
+                                                    <a class="users-list-name" href="#">John</a>
+                                                    <span class="users-list-date">12 Jan</span>
+                                                </li>
+                                                <li>
+                                                    <img src="~/Content/Images/user.png" alt="User Image">
+                                                    <a class="users-list-name" href="#">Alexander</a>
+                                                    <span class="users-list-date">13 Jan</span>
+                                                </li>
+                                                <li>
+                                                    <img src="~/Content/Images/user.png" alt="User Image">
+                                                    <a class="users-list-name" href="#">Sarah</a>
+                                                    <span class="users-list-date">14 Jan</span>
+                                                </li>
+                                                <li>
+                                                    <img src="~/Content/Images/user.png" alt="User Image">
+                                                    <a class="users-list-name" href="#">Nora</a>
+                                                    <span class="users-list-date">15 Jan</span>
+                                                </li>
+                                                <li>
+                                                    <img src="~/Content/Images/user.png" alt="User Image">
+                                                    <a class="users-list-name" href="#">Nadia</a>
+                                                    <span class="users-list-date">15 Jan</span>
+                                                </li>
+                                            </ul>
+                                            <!-- /.users-list -->
+                                        </div>
+                                        <!-- /.box-body -->
+                                        <div class="box-footer text-center">
+                                            <a href="javascript:void(0)" class="uppercase">View All Users</a>
+                                        </div>
+                                        <!-- /.box-footer -->
+                                    </div>
+                                    <!--/.box -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+
+                        </div>
                     </div>
-                </div>
-                <!-- /.row -->
+                    <!-- /.row -->
             </section>
             <!-- /.content -->
         </div>
