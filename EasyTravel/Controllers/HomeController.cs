@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Xml;
 using System.Data.SqlClient;
 using System.Data.OleDb;
+using EasyTravel.Logic;
 
 namespace EasyTravel.Controllers
 {
@@ -33,7 +34,21 @@ namespace EasyTravel.Controllers
 
         public ActionResult Dashboard()
         {
+            string csv = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/CompleteCountries.csv"));
+            Country country = new Country(csv.Split('\n')[130]);
             ViewBag.Message = "Your contact page.";
+            ViewBag.PhoneNumbers = country.GetNumbers();
+            string[] fun_facts = country.GetFunFacts();
+            if (fun_facts != null)
+            {
+                if (fun_facts.Length >= 1) ViewBag.FunFact1 = country.GetFunFacts()[0];
+                else ViewBag.FunFact1 = "It's a beautiful country!";
+
+                if (fun_facts.Length >= 2) ViewBag.FunFact2 = country.GetFunFacts()[1];
+                else ViewBag.FunFact2 = "People are very hospitable!";
+            }
+            ViewBag.Currency = country.GetCurrencyISO();
+            ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
             return View();
         }
 
