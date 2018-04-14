@@ -27,6 +27,15 @@ namespace EasyTravel.Controllers
 
             return View();
         }
+
+        public ActionResult Test()
+        {
+            ViewBag.Key = Logic.Constants.GOOGLE_MAPS_KEY;
+            ViewBag.Latitude = "51.508742";
+            ViewBag.Longitude = "-0.120850";
+
+            return View();
+        }
       
         public ActionResult Dashboard()
         {
