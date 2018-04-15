@@ -7,6 +7,6 @@ namespace EasyTravel.Logic
 {
     public class Constants
     {
-        public static string GOOGLE_MAPS_KEY = "AIzaSyC1JkPaiZPX0pYGyFzrKUVHto3MbebWPjw";
+        public static string GOOGLE_MAPS_KEY = "AIzaSyCUmDlwv6MPtLQtoY2jVSSWp7j8a1KJM8s";
     }
 }

@@ -102,7 +102,7 @@
                                 <h3 class="box-title">Agenda</h3>
                             </div>
                             <ul class="list-group">
-                                <li class="list-group-item active"><h4>16/04/2018</h4></li>
+                                <li class="list-group-item active" id="day1"><h4>16/04/2018</h4></li>
                                 <li class="list-group-item">
                                     <div class="box-header">
                                         <h3 class="box-title">Latest Members</h3>
@@ -125,7 +125,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="list-group-item active"><h4>17/04/2018</h4></li>
+                                <li class="list-group-item active" id="day2"><h4>17/04/2018</h4></li>
                                 <li class="list-group-item">
                                     <div class="box-header">
                                         <h3 class="box-title">Latest Members</h3>
@@ -148,7 +148,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="list-group-item active"><h4>17/04/2018</h4></li>
+                                <li class="list-group-item active" id="day3"><h4>17/04/2018</h4></li>
                                 <li class="list-group-item">
                                     <div class="box-header">
                                         <h3 class="box-title">Latest Members</h3>
@@ -171,7 +171,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="list-group-item active"><h4>17/04/2018</h4></li>
+                                <li class="list-group-item active" id="day4"><h4>17/04/2018</h4></li>
                                 <li class="list-group-item">
                                     <div class="box-header">
                                         <h3 class="box-title">Latest Members</h3>
@@ -218,17 +218,21 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Modal Header</h4>
+                                                <h4 class="modal-title">Date selection</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Select the preffered date for this sight visit:</p>
-                                                <div class="input-group date">
-                                                    <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                                </div>
+                                                <p>Select the preffered date for visiting this sight:</p>
+                                                <input type="date" class="form-control" name="bday" id="dp">
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="save_to_agenda()">Add to agenda</button>
                                             </div>
+                                            <script>
+                                                function save_to_agenda() {
+                                                    var date = document.getElementById('dp').value;
+                                                    
+                                                }
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
