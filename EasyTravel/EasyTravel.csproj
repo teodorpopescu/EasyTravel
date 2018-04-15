@@ -285,6 +285,7 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\InitialView.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
