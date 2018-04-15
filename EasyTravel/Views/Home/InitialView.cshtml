@@ -46,9 +46,6 @@
 
                     <!-- /.col -->
                     <div class="col-md-4">
-                        <!-- /.box -->
-                        <!-- PRODUCT LIST -->
-                        <!-- /.box -->
 
                     </div>
                     <!-- /.col -->
@@ -85,7 +82,7 @@
                                                 var countryn = document.getElementById('country_name').value;
                                                 var fd = document.getElementById('first_day').value;
                                                 var nr = document.getElementById('nr_days').value;
-                                                alert(countryn + fd + nr);
+
                                                 var url = "@Url.Action("Dashboard", "Home")" + "?country_n=" + countryn + "&firstd=" + fd + "&nrd=" + nr;
                                                 window.location.href = url;
                                             }

@@ -15,7 +15,7 @@
             <section class="sidebar">
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li><a href="@Url.Action("InitialView", "Home")"><i class="fa fa-circle-o text-red"></i> <span >Create Trip</span></a></li>
+                    <li><a href="@Url.Action("InitialView", "Home")"><i class="fa fa-circle-o text-red"></i> <span>Create Trip</span></a></li>
                     <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
                     <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
                 </ul>
@@ -101,97 +101,33 @@
                             <div class="box-header with-border">
                                 <h3 class="box-title">Agenda</h3>
                             </div>
+                            @{DateTime d = DateTime.Parse(ViewData["fd"].ToString());}
                             <ul class="list-group">
-                                <li class="list-group-item active" id="day1"><h4>16/04/2018</h4></li>
-                                <li class="list-group-item">
+                                <li class="list-group-item active" id="day1"><h4>@d.Date.ToString().Split(' ')[0]</h4></li>
+                                <li class="list-group-item" id="l1">
                                     <div class="box-header">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-info">2 hours</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
+                                        <h3 class="box-title">Morning</h3>
                                     </div>
                                 </li>
-                                <li class="list-group-item">
+                                @{d = d.AddDays(1);}
+                                <li class="list-group-item active" id="day2"><h4>@d.Date.ToString().Split(' ')[0]</h4></li>
+                                <li class="list-group-item" id="l2">
                                     <div class="box-header">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-info">2 hours</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
+                                        <h3 class="box-title">Morning</h3>
                                     </div>
                                 </li>
-                                <li class="list-group-item active" id="day2"><h4>17/04/2018</h4></li>
-                                <li class="list-group-item">
+                                @{d = d.AddDays(1);}
+                                <li class="list-group-item active" id="day3"><h4>@d.Date.ToString().Split(' ')[0]</h4></li>
+                                <li class="list-group-item" id="l3">
                                     <div class="box-header">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-info">2 hours</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
+                                        <h3 class="box-title">Morning</h3>
                                     </div>
                                 </li>
-                                <li class="list-group-item">
+                                @{ d = d.AddDays(1);}
+                                <li class="list-group-item active" id="day4"><h4>@d.Date.ToString().Split(' ')[0]</h4></li>
+                                <li class="list-group-item" id="l4">
                                     <div class="box-header">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-info">2 hours</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item active" id="day3"><h4>17/04/2018</h4></li>
-                                <li class="list-group-item">
-                                    <div class="box-header">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-info">2 hours</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="box-header">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-info">2 hours</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item active" id="day4"><h4>17/04/2018</h4></li>
-                                <li class="list-group-item">
-                                    <div class="box-header">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-info">2 hours</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="box-header">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-info">2 hours</span>
-                                            <button type="button" class="btn btn-box-tool">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
+                                        <h3 class="box-title">Morning</h3>
                                     </div>
                                 </li>
                             </ul>
@@ -230,7 +166,27 @@
                                             <script>
                                                 function save_to_agenda() {
                                                     var date = document.getElementById('dp').value;
-                                                    
+
+                                                    var h = document.createElement("h4");
+                                                    h.class = "box-title";
+                                                    h.innerHTML = document.getElementById("place-name").innerHTML;
+
+                                                    var divbh = document.createElement("div");
+                                                    divbh.class = "box-header";
+                                                    divbh.appendChild(h);
+
+                                                    var li = document.createElement("li");
+                                                    li.class = "list-group-item";
+                                                    li.appendChild(h);
+
+                                                    if (document.getElementById('day1').innerHTML.toString().startsWith(date) == 0)
+                                                        document.getElementById('l1').appendChild(li);
+                                                    else if (document.getElementById('day2').innerHTML.toString().startsWith(date) == 0)
+                                                        document.getElementById('l2').appendChild(li);
+                                                    else if (document.getElementById('day3').innerHTML.toString().startsWith(date) == 0)
+                                                        document.getElementById('l3').appendChild(li);
+                                                    else
+                                                        document.getElementById('l4').appendChild(li);
                                                 }
                                             </script>
                                         </div>

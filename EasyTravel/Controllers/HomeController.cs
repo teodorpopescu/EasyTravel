@@ -15,6 +15,8 @@ namespace EasyTravel.Controllers
         static Country[] countries = null;
         static int country_idx;
         static string country_name;
+        static DateTime first_day;
+        static int nr_days;
 
         public void update()
         {
@@ -24,6 +26,7 @@ namespace EasyTravel.Controllers
                 UpdateViewBag();
                 return;
             }
+
             string csv = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/CompleteCountries.csv"));
             string[] tmp = csv.Split('\n');
             countries = new Country[tmp.Length];
@@ -31,7 +34,7 @@ namespace EasyTravel.Controllers
             {
                 countries[i] = new Country(tmp[i]);
             }
-            HomeController.country_name = "France";
+
             SetIndexFromCountryName(country_name);
             UpdateViewBag();
         }
@@ -61,7 +64,8 @@ namespace EasyTravel.Controllers
 
                 if (fun_facts.Length >= 2) ViewBag.FunFact2 = country.GetFunFacts()[1];
                 else ViewBag.FunFact2 = "People are very hospitable!";
-            } else
+            }
+            else
             {
                 ViewBag.FunFact1 = "It's a beautiful country!";
                 ViewBag.FunFact2 = "People are very hospitable!";
@@ -71,6 +75,9 @@ namespace EasyTravel.Controllers
             ViewBag.MyCurrency = "USD";
             ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
             ViewBag.PlacePreferences = "night_club,museum,restaurant,gym";
+            ViewData["fd"] = first_day;
+            TempData["fd"] = first_day;
+            ViewBag.NrDays = nr_days;
         }
 
         public ActionResult Index()
@@ -97,9 +104,11 @@ namespace EasyTravel.Controllers
             return View();
         }
 
-        public ActionResult Dashboard(string country_n, string firstd, string nrd)
+        public ActionResult Dashboard(string country_n, string firstd, int nrd)
         {
             country_name = country_n;
+            first_day = DateTime.Parse(firstd);
+            nr_days = nrd;
             update();
             return View();
         }

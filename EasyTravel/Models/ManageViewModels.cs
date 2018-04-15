@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -23,6 +24,11 @@ namespace EasyTravel.Models
     public class FactorViewModel
     {
         public string Purpose { get; set; }
+    }
+
+    public class Dat
+    {
+        public DateTime dateTime { get; set; }
     }
 
     public class SetPasswordViewModel
