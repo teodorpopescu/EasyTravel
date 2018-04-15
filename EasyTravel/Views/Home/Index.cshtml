@@ -13,7 +13,7 @@
                     <div class="intro-heading">Inspiring new ways</div>
                     @{
                         if (User.Identity.IsAuthenticated)
-                        { <a href="@Url.Action("Dashboard", "Home")" class="page-scroll btn-success btn-lg">Go to Dashboard</a>}
+                        { <a href="@Url.Action("Dashboard", "Home", new { country_n = "France"})" class="page-scroll btn-success btn-lg">Go to Dashboard</a>}
                         else
                         { <a href="@Url.Action("Login", "Account")" class="page-scroll btn-success btn-lg">Connect</a>}
                     }

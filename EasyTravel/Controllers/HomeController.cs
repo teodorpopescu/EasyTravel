@@ -12,9 +12,71 @@ namespace EasyTravel.Controllers
 {
     public class HomeController : Controller
     {
+        static Country[] countries = null;
+        static int country_idx;
+        static string country_name;
+
+        public void SetCountryName(string country_name)
+        {
+            HomeController.country_name = country_name;
+        }
+
+        public void update()
+        {
+            if (countries != null)
+            {
+                SetIndexFromCountryName(country_name);
+                UpdateViewBag();
+                return;
+            }
+            string csv = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/CompleteCountries.csv"));
+            string[] tmp = csv.Split('\n');
+            countries = new Country[tmp.Length];
+            for (int i = 0; i < tmp.Length; ++i)
+            {
+                countries[i] = new Country(tmp[i]);
+            }
+            HomeController.country_name = "France";
+            SetIndexFromCountryName(country_name);
+            UpdateViewBag();
+        }
+
+        public void SetIndexFromCountryName(string country_name)
+        {
+            for (int i = 0; i < countries.Length; ++i)
+            {
+                if (countries[i].GetName().Equals(country_name))
+                {
+                    country_idx = i;
+                    break;
+                }
+            }
+        }
+
+        public void UpdateViewBag()
+        {
+            Country country = countries[country_idx];
+            ViewBag.Country = country.GetName();
+            ViewBag.PhoneNumbers = country.GetNumbers();
+            string[] fun_facts = country.GetFunFacts();
+            if (fun_facts != null)
+            {
+                if (fun_facts.Length >= 1) ViewBag.FunFact1 = country.GetFunFacts()[0];
+                else ViewBag.FunFact1 = "It's a beautiful country!";
+
+                if (fun_facts.Length >= 2) ViewBag.FunFact2 = country.GetFunFacts()[1];
+                else ViewBag.FunFact2 = "People are very hospitable!";
+            }
+            ViewBag.Currency = country.GetCurrencyISO();
+            ViewBag.CurrencyValue = country.GetCurrencyValue().ToString();
+            ViewBag.MyCurrency = "USD";
+            ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
+            ViewBag.PlacePreferences = "night_club,museum,restaurant,gym";
+        }
+
+
         public ActionResult Index()
         {
-            con();
             return View();
         }
 
@@ -32,51 +94,16 @@ namespace EasyTravel.Controllers
             return View();
         }
 
-        public ActionResult Dashboard()
+        public ActionResult InitialView()
         {
-            string csv = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/CompleteCountries.csv"));
-            Country country = new Country(csv.Split('\n')[130]);
-            ViewBag.Country = country.GetName();
-            ViewBag.PhoneNumbers = country.GetNumbers();
-            string[] fun_facts = country.GetFunFacts();
-            if (fun_facts != null)
-            {
-                if (fun_facts.Length >= 1) ViewBag.FunFact1 = country.GetFunFacts()[0];
-                else ViewBag.FunFact1 = "It's a beautiful country!";
-
-                if (fun_facts.Length >= 2) ViewBag.FunFact2 = country.GetFunFacts()[1];
-                else ViewBag.FunFact2 = "People are very hospitable!";
-            }
-            ViewBag.Currency = country.GetCurrencyISO();
-            ViewBag.CurrencyValue = country.GetCurrencyValue().ToString();
-            ViewBag.MyCurrency = "USD";
-            ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
-            ViewBag.PlacePreferences = "night_club,museum,restaurant,gym";
             return View();
         }
 
-        private void con()
+        public ActionResult Dashboard(string country_n)
         {
-            string connectionString = System.Configuration.ConfigurationManager.
-                 ConnectionStrings["agenda_db"].ConnectionString;
-
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
-            {
-                conn.Open();
-
-                OleDbDataReader dr;
-                String sq = "SELECT * from agenda";
-                OleDbCommand cmd = new OleDbCommand(sq, conn);
-
-                dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    System.Diagnostics.Debug.WriteLine("User: {0}, {1}", dr.GetValue(0), dr.GetValue(1));
-                }
-
-                dr.Close();
-                cmd.Dispose();
-            }
+            country_name = country_n;
+            update();
+            return View();
         }
     }
 }
