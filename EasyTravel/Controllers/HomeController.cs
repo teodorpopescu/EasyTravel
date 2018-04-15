@@ -51,6 +51,7 @@ namespace EasyTravel.Controllers
             ViewBag.CurrencyValue = country.GetCurrencyValue().ToString();
             ViewBag.MyCurrency = "USD";
             ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
+            ViewBag.PlacePreferences = "night_club,museum,restaurant,gym";
             return View();
         }
 
