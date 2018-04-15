@@ -1,9 +1,23 @@
 ﻿var placeID = 'ChIJT608vzr5sUARKKacfOMyBqw';
 var type_preferences = ["-", "-", "-", "-"];
 
-function initMap() {
+function initMap()
+{
+    var geocoder = new google.maps.Geocoder();
+    var address = country_name;
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var my_lat = results[0].geometry.location.lat();
+            var my_long = results[0].geometry.location.lng();
+            mapp(my_lat, my_long, results[0]);
+        }
+    });
+}
+
+function mapp(my_lat, my_long, place) {
+
     var map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: -33.8688, lng: 151.2195 },
+        center: { lat: my_lat, lng: my_long },
         zoom: 13
     });
 
@@ -23,6 +37,67 @@ function initMap() {
     marker.addListener('click', function () {
         infowindow.open(map, marker);
     });
+
+    infowindow.close();
+    if (!place.geometry) {
+        return;
+    }
+
+    if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+    } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);
+    }
+
+    // Set the position of the marker using the place ID and location.
+    marker.setPlace({
+        placeId: place.place_id,
+        location: place.geometry.location
+    });
+
+    marker.setVisible(true);
+
+    placeID = place.place_id; // update global variable
+    setForecast(place.place_id);
+
+    type_preferences = place_preferences.split(",");
+
+    var request0 = {
+        location: place.geometry.location,
+        radius: '10000',
+        type: type_preferences[0]
+    };
+
+    var request1 = {
+        location: place.geometry.location,
+        radius: '10000',
+        type: type_preferences[1]
+    };
+
+    var request2 = {
+        location: place.geometry.location,
+        radius: '10000',
+        type: type_preferences[2]
+    };
+
+    var request3 = {
+        location: place.geometry.location,
+        radius: '10000',
+        type: type_preferences[3]
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request0, callback0);
+    service.nearbySearch(request1, callback1);
+    service.nearbySearch(request2, callback2);
+    service.nearbySearch(request3, callback3);
+
+    infowindowContent.children['place-name'].textContent = place.name;
+    //   infowindowContent.children['place-id'].textContent = place.place_id;
+    infowindowContent.children['place-address'].textContent =
+        place.formatted_address;
+    infowindow.open(map, marker);
 
     autocomplete.addListener('place_changed', function () {
         infowindow.close();
@@ -92,6 +167,10 @@ function initMap() {
             document.getElementById("category0").innerHTML = type_preferences[0];
             document.getElementById("place0").innerHTML = results[0].name;
             document.getElementById("rating0").innerHTML = "Rating: " + results[0].rating;
+        } else {
+            document.getElementById("category0").innerHTML = type_preferences[0];
+            document.getElementById("place0").innerHTML = '-';
+            document.getElementById("rating0").innerHTML = 'Rating: -';
         }
     }
     function callback1(results, status) {
@@ -99,6 +178,10 @@ function initMap() {
             document.getElementById("category1").innerHTML = type_preferences[1];
             document.getElementById("place1").innerHTML = results[0].name;
             document.getElementById("rating1").innerHTML = "Rating: " + results[0].rating;
+        } else {
+            document.getElementById("category1").innerHTML = type_preferences[1];
+            document.getElementById("place1").innerHTML = '-';
+            document.getElementById("rating1").innerHTML = 'Rating: -';
         }
     }
     function callback2(results, status) {
@@ -106,6 +189,10 @@ function initMap() {
             document.getElementById("category2").innerHTML = type_preferences[2];
             document.getElementById("place2").innerHTML = results[0].name;
             document.getElementById("rating2").innerHTML = "Rating: " + results[0].rating;
+        } else {
+            document.getElementById("category2").innerHTML = type_preferences[2];
+            document.getElementById("place2").innerHTML = '-';
+            document.getElementById("rating2").innerHTML = 'Rating: -';
         }
     }
     function callback3(results, status) {
@@ -113,6 +200,10 @@ function initMap() {
             document.getElementById("category3").innerHTML = type_preferences[3];
             document.getElementById("place3").innerHTML = results[0].name;
             document.getElementById("rating3").innerHTML = "Rating: " + results[0].rating;
+        } else {
+            document.getElementById("category3").innerHTML = type_preferences[3];
+            document.getElementById("place3").innerHTML = '-';
+            document.getElementById("rating3").innerHTML = 'Rating: -';
         }
     }
 }
