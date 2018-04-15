@@ -16,11 +16,6 @@ namespace EasyTravel.Controllers
         static int country_idx;
         static string country_name;
 
-        public void SetCountryName(string country_name)
-        {
-            HomeController.country_name = country_name;
-        }
-
         public void update()
         {
             if (countries != null)
@@ -66,6 +61,10 @@ namespace EasyTravel.Controllers
 
                 if (fun_facts.Length >= 2) ViewBag.FunFact2 = country.GetFunFacts()[1];
                 else ViewBag.FunFact2 = "People are very hospitable!";
+            } else
+            {
+                ViewBag.FunFact1 = "It's a beautiful country!";
+                ViewBag.FunFact2 = "People are very hospitable!";
             }
             ViewBag.Currency = country.GetCurrencyISO();
             ViewBag.CurrencyValue = country.GetCurrencyValue().ToString();
@@ -73,7 +72,6 @@ namespace EasyTravel.Controllers
             ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
             ViewBag.PlacePreferences = "night_club,museum,restaurant,gym";
         }
-
 
         public ActionResult Index()
         {
@@ -99,7 +97,7 @@ namespace EasyTravel.Controllers
             return View();
         }
 
-        public ActionResult Dashboard(string country_n)
+        public ActionResult Dashboard(string country_n, string firstd, string nrd)
         {
             country_name = country_n;
             update();
