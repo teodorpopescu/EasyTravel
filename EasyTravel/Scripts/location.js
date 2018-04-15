@@ -1,5 +1,6 @@
 ﻿var placeID = 'ChIJT608vzr5sUARKKacfOMyBqw';
 var type_preferences = ["-", "-", "-", "-"];
+var my_map = null;
 
 function initMap()
 {
@@ -20,6 +21,7 @@ function mapp(my_lat, my_long, place) {
         center: { lat: my_lat, lng: my_long },
         zoom: 13
     });
+    my_map = map;
 
     var input = document.getElementById('pac-input');
 
@@ -167,6 +169,14 @@ function mapp(my_lat, my_long, place) {
             document.getElementById("category0").innerHTML = type_preferences[0];
             document.getElementById("place0").innerHTML = results[0].name;
             document.getElementById("rating0").innerHTML = "Rating: " + results[0].rating;
+            var marker = new google.maps.Marker({
+                map: my_map
+            });
+            marker.setPlace({
+                placeId: results[0].place_id,
+                location: results[0].geometry.location
+            });
+            marker.setVisible(true);
         } else {
             document.getElementById("category0").innerHTML = type_preferences[0];
             document.getElementById("place0").innerHTML = '-';
@@ -178,6 +188,14 @@ function mapp(my_lat, my_long, place) {
             document.getElementById("category1").innerHTML = type_preferences[1];
             document.getElementById("place1").innerHTML = results[0].name;
             document.getElementById("rating1").innerHTML = "Rating: " + results[0].rating;
+            var marker = new google.maps.Marker({
+                map: my_map
+            });
+            marker.setPlace({
+                placeId: results[0].place_id,
+                location: results[0].geometry.location
+            });
+            marker.setVisible(true);
         } else {
             document.getElementById("category1").innerHTML = type_preferences[1];
             document.getElementById("place1").innerHTML = '-';
@@ -189,6 +207,14 @@ function mapp(my_lat, my_long, place) {
             document.getElementById("category2").innerHTML = type_preferences[2];
             document.getElementById("place2").innerHTML = results[0].name;
             document.getElementById("rating2").innerHTML = "Rating: " + results[0].rating;
+            var marker = new google.maps.Marker({
+                map: my_map
+            });
+            marker.setPlace({
+                placeId: results[0].place_id,
+                location: results[0].geometry.location
+            });
+            marker.setVisible(true);
         } else {
             document.getElementById("category2").innerHTML = type_preferences[2];
             document.getElementById("place2").innerHTML = '-';
@@ -200,6 +226,14 @@ function mapp(my_lat, my_long, place) {
             document.getElementById("category3").innerHTML = type_preferences[3];
             document.getElementById("place3").innerHTML = results[0].name;
             document.getElementById("rating3").innerHTML = "Rating: " + results[0].rating;
+            var marker = new google.maps.Marker({
+                map: my_map
+            });
+            marker.setPlace({
+                placeId: results[0].place_id,
+                location: results[0].geometry.location
+            });
+            marker.setVisible(true);
         } else {
             document.getElementById("category3").innerHTML = type_preferences[3];
             document.getElementById("place3").innerHTML = '-';
