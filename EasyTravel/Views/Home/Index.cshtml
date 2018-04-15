@@ -1,4 +1,5 @@
-﻿@{ 
+﻿@using Microsoft.AspNet.Identity
+@{
     ViewBag.Title = "EasyTravel";
 }
 
@@ -10,7 +11,12 @@
                 <div class="intro-text">
                     <div class="intro-lead-in">EasyTravel App!</div>
                     <div class="intro-heading">Inspiring new ways</div>
-                    <a href="#about" class="page-scroll btn-success btn-lg">Go to Dashboard</a>
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        { <a href="@Url.Action("Dashboard", "Home")" class="page-scroll btn-success btn-lg">Go to Dashboard</a>}
+                        else
+                        { <a href="@Url.Action("Dashboard", "Home")" class="page-scroll btn-success btn-lg">Connect</a>}
+                    }
                 </div>
             </div>
         </div>
@@ -132,9 +138,7 @@
             </div>
         </div>
     </section>
-    <section class="overlay-dark bg-img1 dark-bg short-section">
-        
-    </section>
+    <section class="overlay-dark bg-img1 dark-bg short-section"></section>
 
     <section id="team" class="light-bg">
         <div class="container">
