@@ -13,8 +13,9 @@ namespace EasyTravel.Controllers
     public class HomeController : Controller
     {
         static Country[] countries = null;
-        static int country_idx;
+        static int country_idx, nr;
         static string country_name;
+        static DateTime fid;
 
         public void update()
         {
@@ -31,7 +32,6 @@ namespace EasyTravel.Controllers
             {
                 countries[i] = new Country(tmp[i]);
             }
-            HomeController.country_name = "France";
             SetIndexFromCountryName(country_name);
             UpdateViewBag();
         }
@@ -69,6 +69,8 @@ namespace EasyTravel.Controllers
             ViewBag.Currency = country.GetCurrencyISO();
             ViewBag.CurrencyValue = country.GetCurrencyValue().ToString();
             ViewBag.MyCurrency = "USD";
+            ViewData["fd"] = fid;
+            ViewBag.NrDays = nr;
             ViewBag.GoogleMapsKey = Logic.Constants.GOOGLE_MAPS_KEY;
             ViewBag.PlacePreferences = "restaurant,bar,park,gym";
         }
@@ -97,9 +99,11 @@ namespace EasyTravel.Controllers
             return View();
         }
 
-        public ActionResult Dashboard(string country_n, string firstd, string nrd)
+        public ActionResult Dashboard(string country_n, string firstd, int nrd)
         {
             country_name = country_n;
+            fid = DateTime.Parse(firstd);
+            nr = nrd;
             update();
             return View();
         }

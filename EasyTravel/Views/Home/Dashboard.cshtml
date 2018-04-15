@@ -166,7 +166,7 @@
                                             </div>
                                             <script>
                                                 function save_to_agenda() {
-                                                    var date = document.getElementById('dp').value;
+                                                    var date = document.getElementById('dp').value.toString();
 
                                                     var h = document.createElement("h4");
                                                     h.class = "box-title";
@@ -179,6 +179,8 @@
                                                     var li = document.createElement("li");
                                                     li.class = "list-group-item";
                                                     li.appendChild(h);
+
+                                                    alert(document.getElementById('day1').innerHTML.toString() + " " + date);
 
                                                     if (document.getElementById('day1').innerHTML.toString().startsWith(date) == 0)
                                                         document.getElementById('l1').appendChild(li);
